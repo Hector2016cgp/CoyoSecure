@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Registro total de zonas{% endblock title %}
+
+{% block content %}
+
+{% include 'includes/header.html' %}
+
+<div class="text-success">
+  <div class="grid-x grid-margin-x align-center">
+    <div class="cell small-12 medium-10 large-8">
+      <h1 class="text-center">Lista de zonas por riesgo</h1>
+      
+      <form method="GET" class="grid-x grid-margin-x align-center">
+        <div class="cell small-10 medium-7">
+          <input type="text" id="kword" name="kword" placeholder="Buscar por Codiogo Postal" class="input-group-field">
+        </div>
+        <div class="cell small-2 medium-2">
+          <button type="submit" class="button secondary expanded">Buscar</button>
+        </div>
+      </form>
+
+      <!-- Cartas para las distintas zonas de seguridad en coyoacan -->
+      <div class="grid-x grid-margin-x">
+        {% for e in registro %}
+        <div class="cell small-12 medium-6 large-6">
+          <div class="card border-radius">
+            <div class="card-divider tamanio-fuente-chica">
+              <h5>{{ e.nombre_ciudad }}</h5>
+            </div>
+            <div class="card-section">
+
+              {% if e.seguridad_zona == '0' %}
+              <img src="{% static 'img/Seguro.png' %}" alt="Space">
+              {% endif %}
+
+              {% if e.seguridad_zona == '1' %}
+              <img src="{% static 'img/Inseguro.png' %}" alt="Space">
+              {% endif %}
+
+              {% if e.seguridad_zona == '2' %}
+              <img src="{% static 'img/Zona Delictiva.png' %}" alt="Space">
+              {% endif %}
+
+              <p><strong>CP: </strong> {{ e.codigo_postal }}</p>
+              <p><strong>Colonia: </strong> {{ e.nombre_colonia }}</p>
+              <p><strong>Nivel de Seguridad: </strong>{{e.get_seguridad_zona_display}}</p>
+         
+              <div class="text-center">
+                <div class="button-group no-gaps">
+                  <a href="{% url 'ubicacion_app:delitos-registros' e.codigo_postal %}" class="secondary button">Ver delitos</a>
+                  <a href="{% url 'ubicacion_app:zona-modificada' e.codigo_postal %}" class="success button">Modificar Valores</a>
+                  <a href="{% url 'ubicacion_app:detalles-ratero' e.codigo_postal %}" class="warning button">Ver delincuentes</a>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+      {% if is_paginated %} 
+      <nav aria-label="Pagination" class="text-center">
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+          <li class="pagination-previous">
+            <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+          </li>
+          {% endif %}
+          
+          {% for pagina in paginator.page_range %}
+          {% if pagina == page_obj.number %}
+          <li class="current"><span class="show-for-sr">You're on page</span> {{ pagina }}</li>
+          {% else %}
+          <li><a href="?page={{ pagina }}">{{ pagina }}</a></li>
+          {% endif %}
+          {% endfor %}
+          
+          {% if page_obj.has_next %}
+          <li class="pagination-next">
+            <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+<div class="row grid-container">
+  <div class="columns">
+    <div class="orbit" role="region" aria-label="Favorite Text Ever" data-orbit>
+      <ul class="orbit-container">
+        <button class="orbit-previous" aria-label="previous"><span class="show-for-sr">Previous Slide</span>&#9664;</button>
+        <button class="orbit-next" aria-label="next"><span class="show-for-sr">Next Slide</span>&#9654;</button>
+        <li class="orbit-slide">
+          <div class="docs-example-orbit-slide text-center">
+            <!-- Recordar el uso de text-center para el centrado de botones -->
+            <p><strong>Zona delictiva: </strong>Se caracterizan por una alta incidencia de crímenes y otros factorees que las hacen peligrosas para vivir o visitar. <strong>Como características principales tenemos: Alta tasa de criminalidad, pésima iluminación, ausencia de policía, infraestructura precaria.</strong></p>
+            <a class="button alert centrar-botones" href="{% url 'ubicacion_app:zona_delictiva' %}">Zonas Delictivas</a>
+          </div>
+        </li>
+        <li class="orbit-slide">
+          <div class="docs-example-orbit-slide text-center">
+            <p><strong>Zona insegura: </strong>Las zonas inseguras presentan una combinación de factores que pueden generar preocupación entre los residentes y visitantes. <strong>Como características principales tenemos: Moderada tasa de criminalidad, iluminación insuficiente, presencia de policia irregular.</strong></p>
+            <a class="button warning" href="{% url 'ubicacion_app:zona_insegura' %}">Zonas Inseguras</a>   
+          </div>
+        </li>
+        <li class="orbit-slide">
+          <div class="docs-example-orbit-slide text-center">
+            <p><strong>Zona segura: </strong>Una zona segura se catacteriza por varios factores que le hacen ideal para vivir y realizar actividades diarias con tranquiliad. <strong>Como características principales tenemos: Baja tasa de criminalidad, buena ilumnicación, presencia policial, comunidad activa.</strong></p>
+            <a class="button success" href="{% url 'ubicacion_app:zona_segura' %}">Zonas Seguras</a>
+          </div>
+        </li>
+      </ul>
+      <nav class="orbit-bullets">
+        <button class="is-active" data-slide="0"><span class="show-for-sr">First slide details.</span><span class="show-for-sr">Current Slide</span></button>
+        <button data-slide="1"><span class="show-for-sr">Second slide details.</span></button>
+        <button data-slide="2"><span class="show-for-sr">Third slide details.</span></button>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

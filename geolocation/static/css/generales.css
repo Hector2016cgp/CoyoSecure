@@ -1,0 +1,113 @@
+body{
+    background-image: linear-gradient(to top, #dfe9f3 0%, #fff 100%)
+}
+
+.margen-botones{
+    margin-right: 15px;
+
+}
+
+.margin-bottom{
+    margin-bottom: 20px;
+}
+
+.margin-top{
+    margin-top: 40px;
+}
+
+.padding-header{
+    padding: 20px;
+}
+
+.pantalla{
+
+    /* Lo colocamos para definir el tamaño de los sliders */
+    width: 90%;
+    margin: 0 auto;
+}
+
+.fondo-medio-red{
+    background-color: red;
+    text-align: center;
+}
+
+.fondo-medio-green{
+    background-color: green;
+    text-align: center;
+    
+}
+
+.fondo-medio-gris{
+    background-color: darkcyan;
+    text-align: center;
+}
+
+.border-radius{
+    border-radius: 25px;
+}
+
+
+/* Filtros para la busqueda general */
+
+.text-success {
+    color: green;
+  }
+  
+  .text-warning {
+    color: yellow;
+  }
+  
+  .text-alert {
+    color: red;
+  }
+
+  /* Tamaños de fuente. */
+
+  .tamanio-fuente-chica{
+    font-size: 5px;
+  }
+
+  :root {  /* Define variables within the root element */
+    --white: #fefefe;
+  }
+  
+  /* Demo Styles */
+  body {
+    padding: 2rem 1rem;
+  }
+  
+  .docs-example-orbit-slide {
+    padding: 2rem 4rem;
+    color: var(--white);  /* Use the variable --white */
+  
+    .orbit-slide:nth-of-type(1) & {
+      background: dodgerblue;
+    }
+  
+    .orbit-slide:nth-of-type(2) & {
+      background: rebeccapurple;
+    }
+  
+    .orbit-slide:nth-of-type(3) & {
+      background: darkgoldenrod;
+    }
+  
+    .orbit-slide:nth-of-type(4) & {
+      background: lightseagreen;
+    }
+}
+
+.pantalla-dos{
+
+    /* Lo colocamos para definir el tamaño de los sliders */
+    width: 50%;
+    margin: 0 auto;
+}
+  
+/* Tamaño de los parrafos para la parte de registros totales */
+
+.centrar-botones{
+  text-align: center;
+}
+
+

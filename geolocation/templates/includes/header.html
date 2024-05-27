@@ -1,0 +1,43 @@
+<!-- Aqui vamos a colocar todo lo que se pueda repetir entre cada uno de los templates -->
+<!-- Recordar que los includes son partes estáticas de nuestra página web en Django que se repetira varias veces dentro de nuestro codigo -->
+
+<!-- En este caso es el header o barra de busqueda -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/generales.css' %}">
+</head>
+<body>
+  
+  <div class="top-bar margen-botones margin-bottom padding-header">
+    <div class="top-bar-left">
+      <ul class="dropdown menu" data-dropdown-menu>
+        <li class="menu-text">CoyoSecure</li>
+        
+        <li>
+          <a class="button warning margen-botones border-radius" href="{% url 'ubicacion_app:Inicio'%}">Inicio</a>
+          <!-- Recordar que esta en paginacion y las urls se escriben de la siguiente forma: /?page=4 -->
+          <!-- Esta es la forma optima para relacionar URLS en los estaticos -->
+        </li>
+        <li><a class="button alert margen-botones border-radius" href="{% url 'ubicacion_app:zonas_all'%}">Zonas de Riesgo</a></li>
+        <li><a class="button success margen-botones border-radius" href="{% url 'ubicacion_app:ubicacion-actual'%}">Verifica tu seguridad</a></li>
+        <!-- Recurerda que este boton esta vinculado a un formulario -->
+        <li><a class="button secondary margen-botones border-radius" href="{% url 'ubicacion_app:registrar_delito' %}">Registra un delito</a></li>
+        <li><a class="button secondary margen-botones border-radius" href="{% url 'ubicacion_app:agregar-ratero' %}">Denuncia al ratero</a></li>
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        {% comment %} Recordar colocar el apartado de rateros en el header, conectar el HTML con los demás funcionamientos . {% endcomment %}
+        <li><a class="button border-radius" href="https://www.ssc.cdmx.gob.mx/">Policia de la CDMX</a></li>
+      </ul>
+    </div>
+  </div>
+  
+</body>
+</html>
+

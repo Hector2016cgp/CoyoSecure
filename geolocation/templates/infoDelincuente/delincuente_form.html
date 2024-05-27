@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Registrar Delito{% endblock title %}
+
+{% block content %}
+{% include 'includes/header.html' %}
+
+<div class="callout warning">
+    <div class="grid-x grid-margin-x align-center">
+        <div class="cell small-12 medium-10 large-8">
+            <h2>Agregar Delincuente</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="submit success button">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

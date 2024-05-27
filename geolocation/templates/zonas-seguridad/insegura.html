@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Registro total de zonas{% endblock title %}
+
+{% block content %}
+
+{% include 'includes/header.html' %}
+
+<div class="text-success">
+    <div class="grid-x grid-margin-x align-center">
+        <div class="cell small-12 medium-10 large-8">
+            <h1 class="text-center">Lista de zonas inseguras</h1>
+            
+            <form method="GET" class="grid-x grid-margin-x align-center">
+                <div class="cell small-10 medium-7">
+                    <input type="text" id="kword" name="kword" placeholder="Buscar por Código Postal" class="input-group-field">
+                </div>
+                <div class="cell small-2 medium-2">
+                    <button type="submit" class="button secondary expanded">Buscar</button>
+                </div>
+            </form>
+    
+            <div class="grid-x grid-margin-x">
+            {% for e in insegura %}
+                <div class="cell small-12 medium-6 large-4">
+                    <div class="card border-radius">
+                        <div class="card-divider tamanio-fuente-chica">
+                            <h5>{{ e.nombre_ciudad }}</h5>
+                        </div>
+                        <div class="card-section">
+                            <img src="{% static 'img/Inseguro.png' %}" alt="Space">
+                            <p><strong>CP: </strong> {{ e.codigo_postal }}</p>
+                            <p><strong>Colonia: </strong> {{ e.nombre_colonia }}</p>
+                            <p><strong>Nivel de Seguridad: </strong>{{ e.get_seguridad_zona_display }}</p>
+                            <a href="{% url 'ubicacion_app:delitos-registros' e.codigo_postal %}"><span class="label alert"><i class="fi-x-circle"></i>Ver delitos</span></a>
+                            <a href="{% url 'ubicacion_app:zona-modificada' e.codigo_postal %}"><span class="label warning"><i class="fi-x"></i>Modificar valores</span></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+            
+            {% if is_paginated %}
+            <nav aria-label="Pagination" class="text-center">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="pagination-previous">
+                        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.kword %}&kword={{ request.GET.kword }}{% endif %}">Anterior</a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for pagina in paginator.page_range %}
+                    {% if pagina == page_obj.number %}
+                    <li class="current"><span class="show-for-sr">You're on page</span> {{ pagina }}</li>
+                    {% else %}
+                    <li><a href="?page={{ pagina }}{% if request.GET.kword %}&kword={{ request.GET.kword }}{% endif %}">{{ pagina }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    
+                    {% if page_obj.has_next %}
+                    <li class="pagination-next">
+                        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.kword %}&kword={{ request.GET.kword }}{% endif %}">Siguiente</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Registro total de zonas{% endblock title %}
+
+{% block content %}
+
+{% include 'includes/header.html' %}
+
+<div class="grid-container">
+    <div class="grid-x">
+        <h1 class="cell text-center">Modificar Código Postal {{ modificacion.codigo_postal }}</h1>
+        {% if request.GET.success %}
+            <div class="cell callout success text-center">
+                <h2>Cambios realizados correctamente</h2>
+            </div>
+        {% endif %}
+        <div class="cell">     
+            <form class="grid-x grid-margin-x" method="POST">
+                {% csrf_token %}
+                <div class="cell large-6">
+                    <label>Nombre de la ciudad:
+                        {{ form.nombre_ciudad }}
+                    </label>
+                </div>
+
+                <div class="cell large-6">
+                    <label>Nombre de la colonia:
+                        {{ form.nombre_colonia }}
+                    </label>
+                </div>
+               
+                <div class="cell large-6">
+                    <label>Seguridad de la zona:
+                        {{ form.seguridad_zona }}
+                    </label>
+                </div>
+
+                <div class="cell text-center">
+                    <button type="submit" class="success button">Confirmar</button>
+                </div>
+            </form>
+
+
+            <div class="callout secondary text-center">
+                <h5>¡Registra tu zona de forma segura!</h5>
+                <p>Recuerda comprobar tu datos antes de llenar los espacios. Es necesario que la información sea certera para los demás usuarios.</p>
+              </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

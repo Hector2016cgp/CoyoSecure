@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Ubicación {% endblock title %}
+
+{% block content %}
+
+{% include 'includes/header.html' %}
+
+<div class="container grid-container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-dark text-light text-center">
+                    <h1 class="card-title mb-0">Ubicación actual</h1>
+                </div>
+                <div class="card-body">
+                    {% if error %}
+                    <div class="alert alert-danger text-center">
+                        {{ error }}
+                    </div>
+                    {% elif not seguridad %}
+                    <div class="text-center">
+                        <p><strong>País:</strong> {{ data.country }}</p>
+                        <p><strong>Latitud:</strong> {{ data.lat }}</p>
+                        <p><strong>Longitud:</strong> {{ data.lon }}</p>
+                    </div>
+                    <hr>
+                    <h3 class="card-title text-center">Más detalles</h3>
+                    <div class="text-center">
+                        <p><strong>Código de país:</strong> {{ data.countryCode }}</p>
+                        <p><strong>Zona horaria:</strong> {{ data.timezone }}</p>
+                        <p><strong>Código Postal:</strong> {{ data.zip }}</p> 
+                    </div>
+                    <div id="map" style="height: 400px;"></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if not seguridad %}
+    <script>
+        var map = L.map('map').setView([{{ data.lat }}, {{ data.lon }}], 13);
+    
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    
+        L.marker([{{ data.lat }}, {{ data.lon }}]).addTo(map)
+            .bindPopup('Ubicación aproximada')
+            .openPopup();
+    </script>
+    {% endif %}
+
+    <div class="callout primary grid-container text-center">
+        <h5>Conoce tu estado de seguridad</h5>
+        <p>Por medio de esta función podrás conocer el estado de seguridad en el que te encuentras dependiendo tu ubicación. Puedes ingresar tu Codigo Postal en tiempo real que se encuentra en la parte superior <strong>o puedes ingresar manualmente tu código postal actual.</strong></p>
+        <form method="get" action="{% url 'ubicacion_app:estado-seguridad' %}">
+            <label for="codigo_postal">Ingrese su código postal:</label>
+            <input type="text" id="codigo_postal" name="codigo_postal" required>
+            <button type="submit" class="alert button text-center">Conocer mi estado actual de seguridad</button>
+        </form>
+    </div>
+
+    {% if seguridad == 'segura' %}
+    <div class="callout success text-center">
+        <h5><strong>Te encuentras en una zona segura.</strong></h5>
+        <p>Tu seguridad no se encuentra comprometida, sin embargo no dejes de prestar atención a tu alrededor</p>
+        <p>La zona es: <strong>{{ seguridad }}</strong></p>
+
+        <img src="{% static 'img/Seguro.png' %}" alt="Space">
+    </div>
+
+    {% elif seguridad == 'insegura' %}
+    
+    <div class="callout warning text-center">
+        <h5><strong>Te encuentras en una insegura.</strong></h5>
+        <p>Tu seguridad se encuentra comprometida, no dejes de prestar atención a tu alrededor</p>
+        <p>La zona es: <strong>{{ seguridad }}</strong></p>
+
+        <img src="{% static 'img/Inseguro.png' %}" alt="Space">
+    </div>
+    
+    {% elif seguridad == 'zona delictiva' %}
+    
+    <div class="callout alert text-center">
+        <h5><strong>Te encuentras en una zona delictiva.</strong></h5>
+        <p>Tu seguridad se encuentra altamente comprometida, no dejes de prestar atención a tu alrededor y supervisa tus movimientos.</p>
+        <p>La zona es: <strong>{{ seguridad }}</strong></p>
+
+        <img src="{% static 'img/Zona Delictiva.png' %}" alt="Space">
+    </div>
+    
+    {% endif %}
+
+</div>
+
+{% endblock content %}

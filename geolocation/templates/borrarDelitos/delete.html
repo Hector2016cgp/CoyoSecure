@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Borrar delitos{% endblock title %}
+
+{% block content %}
+
+{% include 'includes/header.html' %}
+
+<div class="grid-container">
+    <div class="grid-x">
+
+        <h1 class="cell">Eliminar el delito</h1>
+            
+        <form class="cell"  method="POST"> {% csrf_token %}
+            
+            <div class="callout secondary">
+                <h5>¿Desea eliminar este delito?</h5>
+                <button type="submit" class="alert button">Confirmar</button>
+            </div>    
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

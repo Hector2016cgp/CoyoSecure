@@ -1,0 +1,37 @@
+<!-- Aqui vamos a colocar todo lo basico o escencial que todos nuestros templates van a heredar -->
+<!-- Se incluyen los diseños que sabemos debemos de usar para cada unos de los templates que haremos -->
+
+{% load static %}
+
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="{%static 'css/foundation.min.css'%}">
+      <!-- <link rel="stylesheet" href="{% static 'css/conf_admin.css'%}"> -->
+      <title>{% block title %} {% endblock title %}</title> 
+      
+
+      <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+      <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+      <link rel="stylesheet" href="{% static 'ccs/generales.css' %}">
+
+      <!-- Con la anterior linea de codigo {% block titleDS %} {% endblock titleDS %} le decimos al documento que por cada template que herede de este mismo le podremos cambiar el titulo para que sea único -->
+      <!-- De esta forma estamos diciendo que pueden ser sobreescritas por plantillas hijas -->
+  </head>
+
+  <body>
+   
+    {% block content %}{% endblock content %}
+      <!-- Heredamos los JS para que todo tenga un diseño bueno -->
+      <!-- Recordar que estos JS están en los documentos de instalación, pero hay que cambiarlos al formato static -->
+      <!-- https://get.foundation/sites/docs/installation.html --Link para poder recurrir a más información de la instalación -->
+      <script src="{%static 'js/vendor/jquery.js'%}"></script>
+      <script src="{%static 'js/vendor/what-input.js'%}"></script>
+      <script src="{%static 'js/vendor/foundation.min.js'%}"></script>
+      <script>
+        $(document).foundation();
+      </script>
+  </body>
+</html>

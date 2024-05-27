@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Registro de delitos en {{ ubicacion.codigo_postal }}{% endblock title %}
+
+{% block content %}
+
+{% include 'includes/header.html' %}
+
+<div class="cell text-center">
+    <h1>Delitos en {{ ubicacion.nombre_colonia }}, {{ ubicacion.nombre_ciudad }} ({{ ubicacion.codigo_postal }})</h1>
+    <table class="grid-container">
+        <thead>
+         <tr>
+          <th width="150">Delegación</th>
+          <th width="300">Calle</th>
+          <th width="300">Colonia</th>
+          <th width="150">Código Postal</th>
+          <th width="150">Delito</th>
+          {% comment %} <th width="250">Detalles del delito</th> {% endcomment %}
+          <th width="100">Borrar delito</th>
+        </tr>
+        
+        </thead>
+        <tbody>
+         {% for e in delitos %}
+         <!-- cada tr es una fila de la tabla -->
+          <tr>
+           <td>{{ e.delegacion_delito }}</td>
+           <td>{{ e.calle_delito }}</td>
+           <td>{{ e.colonia_delito }}</td>
+           <td>{{ e.codigop_delito.codigo_postal }}</td>
+           <td>{{ e.get_tipo_delito_display }}</td>
+           <td><a class="button alert" href="{% url 'ubicacion_app:borrar-delito' e.id %}">Borrar delito</a></td>
+        </tr>
+         {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}
