@@ -8,3 +8,8 @@ CoyoSecure es un proyecto de la materia Bases de Datos de la Facultad de Ingenie
 + Implementar APIS.
 + Despliegue del proyecto por medio de nginx.
 
+## Objetivo para Coyoacán:
++ Beneficio directo para la comunidad y sus zonas de riesgo.
++ Aportación de la sociedad a conocer los delitos de la zona.
++ Protección a la comunidad estudiantil.
++ Mayor conocimiento de los delitos cometidos en la comunidad.
