@@ -51,8 +51,6 @@ class ListAllZonas(ListView):
     ordering = "codigo_postal"
     context_object_name = 'registro'
 
-    # http://127.0.0.1:8000/listar-todo-empleados/?page=4, para poder ingresar a las distintas páginas ingresamos la anterior URL.
-
     def get_queryset(self):
         palabra_clave = self.request.GET.get("kword", '')
 
@@ -67,9 +65,7 @@ class ListSegura(ListView):
     paginate_by=3
     ordering = "codigo_postal"
     context_object_name = 'segura'
-
-    # http://127.0.0.1:8000/listar-todo-empleados/?page=4, para poder ingresar a las distintas páginas ingresamos la anterior URL.
-
+    
     def get_queryset(self):
         palabra_clave = self.request.GET.get("kword", '')
 
@@ -86,8 +82,6 @@ class ListInsegura(ListView):
     ordering = "codigo_postal"
     context_object_name = 'insegura'
 
-    # http://127.0.0.1:8000/listar-todo-empleados/?page=4, para poder ingresar a las distintas páginas ingresamos la anterior URL.
-
     def get_queryset(self):
         palabra_clave = self.request.GET.get("kword", '')
 
@@ -103,9 +97,7 @@ class ListDelictiva(ListView):
     paginate_by = 3
     ordering = "codigo_postal"
     context_object_name = 'delictiva'
-
-    # http://127.0.0.1:8000/listar-todo-empleados/?page=4, para poder ingresar a las distintas páginas ingresamos la anterior URL.
-
+    
     def get_queryset(self):
         palabra_clave = self.request.GET.get("kword", '')
 
@@ -181,8 +173,8 @@ class RegistrarDelitoView(CreateView):
 
 class DelitoDeleteView(DeleteView):
     model = Delito 
-    template_name = "ubicacion_app/delete.html"  # Asegúrate de que la plantilla esté en la carpeta correcta
-    success_url = reverse_lazy("ubicacion_app:zonas_all")  # Cambia esta URL al lugar correcto después de borrar
+    template_name = "ubicacion_app/delete.html" 
+    success_url = reverse_lazy("ubicacion_app:zonas_all")  
 
     def get_success_url(self):
         # Después de borrar el delito, puedes redirigir a una página específica, como la lista de delitos
@@ -190,11 +182,10 @@ class DelitoDeleteView(DeleteView):
 
 class DelitoDeleteView(DeleteView):
     model = Delito
-    template_name = "borrarDelitos/delete.html"  # Asegúrate de que la plantilla esté en la carpeta correcta
-    success_url = reverse_lazy("ubicacion_app:zonas_all")  # Cambia esta URL según sea necesario
+    template_name = "borrarDelitos/delete.html" 
+    success_url = reverse_lazy("ubicacion_app:zonas_all")  
 
     def get_success_url(self):
-        # Después de borrar el delito, puedes redirigir a una página específica, como la lista de delitos
         return reverse_lazy("ubicacion_app:zonas_all")
 
 # Apartado para poder agregar a los rateros por codigo postal
